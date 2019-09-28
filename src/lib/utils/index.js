@@ -1,6 +1,6 @@
 import Knex from "knex";
 import { Model } from "objection";
-import knexConfig from "$root/knexfile";
+import knexConfig from "../../knexfile.js";
 import _ from "lodash";
 
 /**

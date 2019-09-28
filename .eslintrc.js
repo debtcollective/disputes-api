@@ -48,7 +48,6 @@ module.exports = {
     "node/no-unsupported-features/es-syntax": "off",
   },
   globals: {},
-  parser: "babel-eslint",
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: "module",

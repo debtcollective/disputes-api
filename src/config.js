@@ -41,4 +41,4 @@ nconf
 
 const conf = nconf.get();
 
-module.exports = conf;
+export default conf;

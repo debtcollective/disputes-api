@@ -1,8 +1,8 @@
 # Dispute Tools Backend
 
-## Setup
+# Setup
 
-### Database
+## Database
 
 We are using Objection.js as our ORM and Knex needs to be configurated to work with it.
 
@@ -21,10 +21,16 @@ Now you run migrations with
 yarn db:migrate
 ```
 
-## Usage
+# Usage
 
 `yarn start` will run the project in development mode.
 
-## Tests
+# Tests
 
 `yarn test` will run tests. We are using Jest for tests
+
+# Notes
+
+## esm
+
+We are using [esm](https://github.com/standard-things/esm) instead of babel to run the node server. At the moment [jest doesn't support esm](https://github.com/standard-things/esm/issues/706#issuecomment-458698925) and we have to use babel.

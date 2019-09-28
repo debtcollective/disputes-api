@@ -2,7 +2,10 @@ import { gql } from "apollo-server-express";
 import GraphQLJSON from "graphql-type-json";
 import { makeExecutableSchema } from "graphql-tools";
 import _ from "lodash";
-import { typeDef as Dispute, resolvers as disputeResolvers } from "./dispute";
+import {
+  typeDef as Dispute,
+  resolvers as disputeResolvers,
+} from "./dispute.js";
 
 const Root = gql`
   type Query {
@@ -17,7 +20,7 @@ const Root = gql`
 const rootResolvers = {
   JSON: GraphQLJSON,
   Query: {},
-  Mutation: {}
+  Mutation: {},
 };
 
 export const typeDefs = [Root, Dispute];

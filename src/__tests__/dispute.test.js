@@ -1,4 +1,4 @@
-import { Dispute } from "@debtcollective/models";
+import { Dispute } from "../models";
 import knex from "../knex";
 
 describe("Dispute", () => {

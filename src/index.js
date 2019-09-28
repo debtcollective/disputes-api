@@ -1,8 +1,8 @@
 import express from "express";
-import knex from "./knex";
+import knex from "./knex/index.js";
 import { ApolloServer } from "apollo-server-express";
-import { Model } from "@debtcollective/models";
-import { resolvers, typeDefs } from "./schema";
+import { Model } from "./models";
+import { resolvers, typeDefs } from "./schema/index.js";
 
 // setup Objection.js
 Model.knex(knex);
