@@ -1,6 +1,6 @@
-import express from "express";
 import knex from "./knex/index.js";
-import { ApolloServer } from "apollo-server-express";
+import config from "./config.js";
+import { ApolloServer } from "apollo-server";
 import { Model } from "./models";
 import { resolvers, typeDefs } from "./schema/index.js";
 
@@ -15,12 +15,9 @@ const server = new ApolloServer({
   typeDefs,
 });
 
-const app = express();
-const port = process.env.PORT || 4000;
+const port = config.PORT;
 
-server.applyMiddleware({ app, path: "/graphql" });
-
-app.listen({ port }, () => {
+server.listen({ port }, () => {
   console.log(
     `🚀  Server ready at http://localhost:${port}${server.graphqlPath}`
   );
