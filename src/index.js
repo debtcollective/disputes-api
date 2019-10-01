@@ -9,7 +9,7 @@ Model.knex(knex);
 
 // init ApolloServer
 const server = new ApolloServer({
-  introspection: true,
+  introspection: config.INTROSPECTION,
   playground: true,
   resolvers,
   typeDefs,

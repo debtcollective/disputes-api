@@ -23,6 +23,7 @@ nconf
       "DB_SCHEMA",
       "DB_USER",
       "DEBUG",
+      "INTROSPECTION",
       "PORT",
     ],
   })
@@ -36,6 +37,7 @@ nconf
     DB_SCHEMA: "tdc_disputes",
     DB_USER: "postgres",
     DEBUG: false,
+    INTROSPECTION: false,
     IS_PROD: isProd,
     IS_TEST: isTest,
     PORT: "4000",
