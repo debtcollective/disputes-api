@@ -1,9 +1,9 @@
 import { knexSnakeCaseMappers } from "objection";
 import path from "path";
-import config from "./config";
+import config from "./src/config";
 
 const knexConfig = {
-  client: "postgresql",
+  client: "pg",
   connection: config.DB_CONNECTION_STRING || {
     database: config.DB_NAME,
     host: config.DB_HOST,
@@ -24,4 +24,4 @@ const knexConfig = {
   ...knexSnakeCaseMappers(),
 };
 
-export default knexConfig;
+module.exports = knexConfig;

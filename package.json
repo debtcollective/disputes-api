@@ -7,10 +7,11 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "db:migrate": "yarn knex migrate:latest --knexfile ./src/knexfile.js",
-    "db:migrate:down": "yarn knex migrate:down --knexfile ./src/knexfile.js",
+    "db:migrate": "yarn knex migrate:latest",
+    "db:migrate:down": "yarn knex migrate:down",
     "db:test:prepare": "NODE_ENV=test yarn db:migrate",
     "debug": "nodemon --exec node -r esm src/index.js",
+    "knex": "node -r esm node_modules/.bin/knex",
     "pre-commit": "lint-staged",
     "setup:ci": "yarn db:test:prepare",
     "start": "nodemon --exec node -r esm src/index.js",
