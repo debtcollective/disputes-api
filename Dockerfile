@@ -12,6 +12,4 @@ COPY .env.template .env
 
 EXPOSE 4000
 
-RUN yarn build
-
 CMD ["yarn", "start:prod"]
