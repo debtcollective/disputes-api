@@ -6,24 +6,32 @@
   "license": "BSD-3-Clause",
   "type": "module",
   "private": true,
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/github"
+    ]
+  },
   "scripts": {
-    "db:migrate": "yarn knex migrate:latest --knexfile ./src/knexfile.js",
-    "db:migrate:down": "yarn knex migrate:down --knexfile ./src/knexfile.js",
+    "db:migrate": "yarn knex migrate:latest",
+    "db:migrate:down": "yarn knex migrate:down",
     "db:test:prepare": "NODE_ENV=test yarn db:migrate",
     "debug": "nodemon --exec node -r esm src/index.js",
+    "knex": "node -r esm node_modules/.bin/knex",
     "pre-commit": "lint-staged",
     "setup:ci": "yarn db:test:prepare",
     "start": "nodemon --exec node -r esm src/index.js",
+    "start:prod": "node -r esm src/index.js",
     "test": "jest --watch",
     "test:ci": "yarn test:coverage",
     "test:coverage": "jest --coverage --verbose --color"
   },
   "dependencies": {
     "@debtcollective/tools": "^0.8.5",
-    "apollo-server-express": "2.9.3",
+    "apollo-server": "2.9.4",
     "dotenv": "8.1.0",
     "esm": "3.2.25",
-    "express": "4.17.1",
     "graphql": "14.5.8",
     "graphql-type-json": "0.3.0",
     "knex": "0.19.4",
@@ -35,6 +43,9 @@
   "devDependencies": {
     "@babel/core": "7.6.2",
     "@babel/preset-env": "7.6.2",
+    "@semantic-release/commit-analyzer": "6.3.0",
+    "@semantic-release/github": "5.5.0",
+    "@semantic-release/release-notes-generator": "7.3.0",
     "babel-jest": "24.9.0",
     "eslint": "6.4.0",
     "eslint-plugin-flowtype": "4.3.0",
@@ -47,7 +58,8 @@
     "jest": "24.9.0",
     "lint-staged": "9.2.5",
     "nodemon": "1.19.2",
-    "prettier-eslint-cli": "5.0.0"
+    "prettier-eslint-cli": "5.0.0",
+    "semantic-release": "15.13.24"
   },
   "lint-staged": {
     "*.js": [

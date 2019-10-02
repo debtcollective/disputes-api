@@ -1,4 +1,4 @@
-import { gql } from "apollo-server-express";
+import { gql } from "apollo-server";
 
 export const typeDef = gql`
   scalar JSON
@@ -19,5 +19,5 @@ export const typeDef = gql`
 `;
 
 export const resolvers = {
-  Dispute: {}
+  Dispute: {},
 };

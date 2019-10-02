@@ -1,4 +1,4 @@
-import { gql } from "apollo-server-express";
+import { gql } from "apollo-server";
 import GraphQLJSON from "graphql-type-json";
 import { makeExecutableSchema } from "graphql-tools";
 import _ from "lodash";

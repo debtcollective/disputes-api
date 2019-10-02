@@ -1,0 +1,233 @@
+---
+version: 2.1
+executors:
+  docker-publisher:
+    working_directory: ~/disputes-api
+    environment:
+      IMAGE_NAME: debtcollective/disputes-api
+
+    docker:
+      - image: circleci/buildpack-deps:stretch
+orbs:
+  aws-cli: circleci/aws-cli@0.1.15
+jobs:
+  test:
+    working_directory: ~/disputes-api
+    docker:
+      - image: circleci/node:12.10.0
+        environment:
+          DB_HOST: localhost
+          DB_NAME: disputes_test
+          DB_USER: disputes_api
+          NODE_ENV: test
+      - image: postgres:10
+        environment:
+          POSTGRES_USER: disputes_api
+          POSTGRES_DB: disputes_test
+          POSTGRES_PASSWORD: ""
+    steps:
+      - checkout
+
+      # restore cache
+      - restore_cache:
+          keys:
+            - disputes-api-{{ checksum "yarn.lock" }}
+            - disputes-api
+
+      - run:
+          name: install dependencies
+          command: |
+            yarn install
+
+      - run:
+          name: wait for postgres
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+      - run:
+          name: dotenv
+          command: cp .env.template .env
+
+      - run:
+          name: setup db
+          command: yarn db:migrate
+
+      - run:
+          name: run tests
+          command: yarn test:ci
+
+      # write cache
+      - save_cache:
+          key: disputes-api-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+  build:
+    executor: docker-publisher
+    steps:
+      - checkout
+
+      - setup_remote_docker:
+          docker_layer_caching: true
+
+      - run:
+          name: build image
+          command: |
+            export IMAGE_TAG=$(echo $CIRCLE_SHA1 | cut -c -7)
+            make build tag=$IMAGE_TAG
+
+      - run:
+          name: Archive Docker image
+          command: docker save -o image.tar $IMAGE_NAME
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./image.tar
+
+  release:
+    working_directory: ~/disputes-api
+    docker:
+      - image: circleci/node:12.10.0
+    steps:
+      - checkout
+
+      # debt-bot ssh key
+      - add_ssh_keys:
+          fingerprints:
+            - "90:19:0a:60:b7:db:f6:43:89:09:32:c2:95:c6:67:7f"
+
+      - run:
+          name: configure git
+          command: |
+            mkdir -p ~/.ssh
+            chmod 700 ~/.ssh
+            touch ~/.ssh/known_hosts
+            chmod 644 ~/.ssh/known_hosts
+            ssh-keyscan github.com >> ~/.ssh/known_hosts
+            git config user.email "bot@debtcollective.org"
+            git config user.name "Debt Bot"
+
+      - run:
+          name: Github release with semantic release
+          command: |
+            yarn install
+            yarn semantic-release
+
+  publish_latest:
+    executor: docker-publisher
+    steps:
+      - checkout
+
+      - attach_workspace:
+          at: /tmp/workspace
+
+      - setup_remote_docker:
+          docker_layer_caching: true
+
+      - run:
+          name: load archived Docker image
+          command: docker load -i /tmp/workspace/image.tar
+
+      - run:
+          name: login docker registry
+          command: |
+            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+
+      - run:
+          name: push image to hub.docker.io
+          command: |
+            export IMAGE_TAG=$(echo $CIRCLE_SHA1 | cut -c -7)
+            make push tag=$IMAGE_TAG
+
+            docker tag debtcollective/disputes-api:$IMAGE_TAG debtcollective/disputes-api:latest
+            make push
+
+  publish_tag:
+    executor: docker-publisher
+    steps:
+      - checkout
+
+      - attach_workspace:
+          at: /tmp/workspace
+
+      - setup_remote_docker:
+          docker_layer_caching: true
+
+      - run:
+          name: load archived Docker image
+          command: docker load -i /tmp/workspace/image.tar
+
+      - run:
+          name: login docker registry
+          command: |
+            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+
+      - run:
+          name: alias docker images
+          command: |
+            export IMAGE_TAG=$(echo $CIRCLE_SHA1 | cut -c -7)
+            docker tag debtcollective/disputes-api:$IMAGE_TAG debtcollective/disputes-api:$CIRCLE_TAG
+
+      - run:
+          name: push image to hub.docker.io
+          command: |
+            docker push debtcollective/disputes-api:$CIRCLE_TAG
+
+  deploy_stage:
+    executor: docker-publisher
+    environment:
+      ECS_CLUSTER: disputes-api-stage
+      ECS_SERVICE: disputes-api
+    steps:
+      - checkout
+      - aws-cli/install
+      - aws-cli/configure
+
+      - run:
+          name: Deploy new task in ECS
+          command: |
+            aws ecs update-service --cluster $ECS_CLUSTER --service $ECS_SERVICE --force-new-deployment
+
+workflows:
+  version: 2
+  pipeline:
+    jobs:
+      - test
+      - build:
+          requires:
+            - test
+      - release:
+          requires:
+            - test
+            - build
+          filters:
+            branches:
+              only: master
+      - publish_latest:
+          requires:
+            - test
+            - build
+          filters:
+            branches:
+              only: master
+      - deploy_stage:
+          requires:
+            - publish_latest
+          filters:
+            branches:
+              only: master
+  pipeline-tag:
+    jobs:
+      - build:
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
+      - publish_tag:
+          requires:
+            - build
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/

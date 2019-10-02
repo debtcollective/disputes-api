@@ -13,16 +13,18 @@ nconf
   .env({
     separator: "__",
     whitelist: [
-      "DEBUG",
       "DB_CONNECTION_STRING",
       "DB_HOST",
-      "DB_PORT",
-      "DB_USER",
-      "DB_PWD",
       "DB_NAME",
-      "DB_SCHEMA",
-      "DB_POOL_MIN",
       "DB_POOL_MAX",
+      "DB_POOL_MIN",
+      "DB_PORT",
+      "DB_PWD",
+      "DB_SCHEMA",
+      "DB_USER",
+      "DEBUG",
+      "INTROSPECTION",
+      "PORT",
     ],
   })
   .defaults({
@@ -35,8 +37,10 @@ nconf
     DB_SCHEMA: "tdc_disputes",
     DB_USER: "postgres",
     DEBUG: false,
+    INTROSPECTION: false,
     IS_PROD: isProd,
     IS_TEST: isTest,
+    PORT: "4000",
   });
 
 const conf = nconf.get();
