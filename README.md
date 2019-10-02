@@ -1,12 +1,16 @@
-# Dispute Tools Backend
+# Dispute Tools API
+
+This is the API for our Disputes Tools app.
+
+## Stack and Libraries
+
+- [Node.js](https://nodejs.org/)
+- [Apollo Server](https://github.com/apollographql/apollo-server)
+- [Objection.js](https://github.com/Vincit/objection.js)
 
 # Setup
 
 ## Database
-
-We are using Objection.js as our ORM and Knex needs to be configurated to work with it.
-
-First, run `cp .env.sample .env` and replace the values with your specific configuration.
 
 You need to create databases for development and test environment, you can do that by running these commands.
 
@@ -20,6 +24,10 @@ Now you run migrations with
 ```bash
 yarn db:migrate
 ```
+
+## Dotenv
+
+Run `cp .env.sample .env` and replace the values with your specific configuration.
 
 # Usage
 
