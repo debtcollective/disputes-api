@@ -6,6 +6,13 @@
   "license": "BSD-3-Clause",
   "type": "module",
   "private": true,
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/github"
+    ]
+  },
   "scripts": {
     "db:migrate": "yarn knex migrate:latest",
     "db:migrate:down": "yarn knex migrate:down",
@@ -36,6 +43,9 @@
   "devDependencies": {
     "@babel/core": "7.6.2",
     "@babel/preset-env": "7.6.2",
+    "@semantic-release/commit-analyzer": "6.3.0",
+    "@semantic-release/github": "5.5.0",
+    "@semantic-release/release-notes-generator": "7.3.0",
     "babel-jest": "24.9.0",
     "eslint": "6.4.0",
     "eslint-plugin-flowtype": "4.3.0",
@@ -48,7 +58,8 @@
     "jest": "24.9.0",
     "lint-staged": "9.2.5",
     "nodemon": "1.19.2",
-    "prettier-eslint-cli": "5.0.0"
+    "prettier-eslint-cli": "5.0.0",
+    "semantic-release": "15.13.24"
   },
   "lint-staged": {
     "*.js": [
