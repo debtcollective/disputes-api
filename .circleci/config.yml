@@ -16,11 +16,13 @@ jobs:
     docker:
       - image: circleci/node:12.10.0
         environment:
-          PGHOST: localhost
-          PGUSER: disputes-api
+          DB_HOST: localhost
+          DB_NAME: disputes_test
+          DB_USER: disputes_api
+          NODE_ENV: test
       - image: postgres:10
         environment:
-          POSTGRES_USER: disputes-api
+          POSTGRES_USER: disputes_api
           POSTGRES_DB: disputes_test
           POSTGRES_PASSWORD: ""
     steps:
