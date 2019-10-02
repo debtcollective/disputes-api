@@ -1,4 +1,4 @@
-import knex from "./knex/index.js";
+import knex from "../knex";
 import config from "./config.js";
 import { ApolloServer } from "apollo-server";
 import { Model } from "./models";
