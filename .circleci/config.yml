@@ -55,6 +55,10 @@ jobs:
           name: run tests
           command: yarn test:ci
 
+      - run:
+          name: codecov
+          command: npx codecov
+
       # write cache
       - save_cache:
           key: disputes-api-{{ checksum "yarn.lock" }}
