@@ -9,6 +9,10 @@ Model.knex(knex);
 
 // init ApolloServer
 const server = new ApolloServer({
+  cors: {
+    origin: "*",
+    credentials: true,
+  },
   introspection: config.INTROSPECTION,
   playground: true,
   resolvers,
