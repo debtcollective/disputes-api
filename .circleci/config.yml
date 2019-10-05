@@ -179,8 +179,8 @@ jobs:
   deploy_stage:
     executor: docker-publisher
     environment:
-      ECS_CLUSTER: disputes-api-stage
-      ECS_SERVICE: disputes-api
+      ECS_CLUSTER: disputes_api-stage
+      ECS_SERVICE: disputes_api
     steps:
       - checkout
       - aws-cli/install
