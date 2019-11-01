@@ -14,7 +14,7 @@ jobs:
   test:
     working_directory: ~/disputes-api
     docker:
-      - image: circleci/node:12.10.0
+      - image: circleci/node:12.13.0
         environment:
           DB_HOST: localhost
           DB_NAME: disputes_test
@@ -90,7 +90,7 @@ jobs:
   release:
     working_directory: ~/disputes-api
     docker:
-      - image: circleci/node:12.10.0
+      - image: circleci/node:12.13.0
     steps:
       - checkout
 
