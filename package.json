@@ -28,7 +28,7 @@
     "test:coverage": "jest --coverage --verbose --color"
   },
   "dependencies": {
-    "@debtcollective/tools": "^0.8.5",
+    "@debtcollective/tools": "0.8.5",
     "apollo-server": "2.9.4",
     "dotenv": "8.1.0",
     "esm": "3.2.25",
