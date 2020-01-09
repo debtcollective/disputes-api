@@ -43,9 +43,9 @@
   "devDependencies": {
     "@babel/core": "7.7.2",
     "@babel/preset-env": "7.7.1",
-    "@semantic-release/commit-analyzer": "6.3.0",
-    "@semantic-release/github": "5.5.0",
-    "@semantic-release/release-notes-generator": "7.3.0",
+    "@semantic-release/commit-analyzer": "6.3.3",
+    "@semantic-release/github": "5.5.8",
+    "@semantic-release/release-notes-generator": "7.3.5",
     "babel-jest": "24.9.0",
     "eslint": "6.6.0",
     "eslint-plugin-flowtype": "4.3.0",
@@ -59,7 +59,7 @@
     "lint-staged": "9.4.2",
     "nodemon": "1.19.2",
     "prettier-eslint-cli": "5.0.0",
-    "semantic-release": "15.13.24"
+    "semantic-release": "15.14.0"
   },
   "lint-staged": {
     "*.js": [
