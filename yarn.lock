@@ -835,12 +835,12 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@debtcollective/tools@0.8.5":
-  version "0.8.5"
-  resolved "https://registry.yarnpkg.com/@debtcollective/tools/-/tools-0.8.5.tgz#62ed6b916975d00945d3acb93cd29d5e80244bd6"
-  integrity sha512-4Ps+m7SVHATVha/jyA9SuQDjSZq2NlPD6J9+1RJKap+bX4VRCj53qCJBzd1tWfoO7F7lm6t8KjYcnB3/lidnhA==
+"@debtcollective/tools@0.12.2":
+  version "0.12.2"
+  resolved "https://registry.yarnpkg.com/@debtcollective/tools/-/tools-0.12.2.tgz#12438d231d629d66b657006c23e6ec24f8e70eae"
+  integrity sha512-Zg6Ddr24uPCszkIUoWpCGgK75E5Yc0OvYl/y9/QadgpP9YaO1DqkzebISMSFRd8sFCJk6Ex4Tdv6Uo0Grb3vMQ==
   dependencies:
-    lodash "4.17.15"
+    lodash "4.17.19"
 
 "@jest/console@^24.7.1", "@jest/console@^24.9.0":
   version "24.9.0"
@@ -6165,6 +6165,11 @@ lodash@4.17.15, lodash@^4.11.1, lodash@^4.17.11, lodash@^4.17.12, lodash@^4.17.1
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
+
+lodash@4.17.19:
+  version "4.17.19"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
+  integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
 
 log-symbols@^1.0.2:
   version "1.0.2"
