@@ -59,7 +59,7 @@
     "lint-staged": "9.4.2",
     "nodemon": "1.19.2",
     "prettier-eslint-cli": "5.0.0",
-    "semantic-release": "15.13.24"
+    "semantic-release": "17.2.3"
   },
   "lint-staged": {
     "*.js": [
